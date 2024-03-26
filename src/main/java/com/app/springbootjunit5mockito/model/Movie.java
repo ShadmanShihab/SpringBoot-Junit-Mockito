@@ -10,7 +10,7 @@ public class Movie {
     @SuppressWarnings("unused")
     private String duration;
 
-    public Movie(String title, String duration, Date releaseDate) {
+    public Movie(String title, Date releaseDate, String duration) {
         super();
         this.title = title;
         this.duration = duration;
