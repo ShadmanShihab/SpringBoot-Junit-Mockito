@@ -44,7 +44,10 @@ public class DataService {
      **/
 
     public List<TolkienCharacter> getFellowship() {
+
         final List<TolkienCharacter> fellowshipOfTheRing = new ArrayList<>();
+
+
         // let's do some team building :)
         fellowshipOfTheRing.add(frodo);
         fellowshipOfTheRing.add(sam);
@@ -68,10 +71,7 @@ public class DataService {
 
     public TolkienCharacter getFellowshipCharacter(String name) {
         List<TolkienCharacter> list = getFellowship();
-        return list.stream()
-                .filter(tolkienCharacter -> tolkienCharacter.equals(name))
-                .findFirst()
-                .get();
+        return list.stream().filter(s-> s.equals(name)).findFirst().get();
     }
 
     public Map<Ring, TolkienCharacter> getRingBearers() {
