@@ -1,9 +1,12 @@
 package com.app.springbootjunit5mockito.service;
 
+import com.app.springbootjunit5mockito.enumeration.Race;
 import com.app.springbootjunit5mockito.model.Movie;
 import com.app.springbootjunit5mockito.model.TolkienCharacter;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.apache.tomcat.util.bcel.classfile.ClassFormatException;
+import org.junit.jupiter.api.*;
+
+import java.util.List;
 
 import static com.app.springbootjunit5mockito.enumeration.Race.*;
 import static org.assertj.core.api.Fail.fail;
@@ -64,7 +67,69 @@ public class DataServiceTest {
     void ensureFellowShipCharacterAccessByNameWorksGivenCorrectNameIsGiven() {
         // TODO implement a check that dataService.getFellowshipCharacter returns a fellow for an
         // existing felllow, e.g. "Frodo"
-        TolkienCharacter fellowshipCharacter = dataService.getFellowshipCharacter("Frodo");
-        assertNotNull(fellowshipCharacter);
+        TolkienCharacter frodo = dataService.getFellowshipCharacter("Frodo");
+        assertNotNull(frodo);
+    }
+
+    @Test
+    void ensureThatFrodoAndGandalfArePartOfTheFellowsip() {
+        List<TolkienCharacter> fellowship = dataService.getFellowship();
+        TolkienCharacter frodo = dataService.getFellowshipCharacter("Frodo");
+        // TODO check that Frodo and Gandalf are part of the fellowship
+        assertNotNull(fellowship.contains(frodo), "Fellowship should contain Frodo");
+    }
+
+    @Test
+    void ensureThatOneRingBearerIsPartOfTheFellowship() {
+
+        List<TolkienCharacter> fellowship = dataService.getFellowship();
+
+        // TODO test that at least one ring bearer is part of the fellowship
+        fail("not yet implemented");
+    }
+
+    // TODO Use @RepeatedTest(int) to execute this test 1000 times
+    @RepeatedTest(1000)
+    @Tag("slow")
+    @DisplayName("Minimal stress testing: run this test 1000 times to ")
+    void ensureThatWeCanRetrieveFellowshipMultipleTimes() {
+        dataService = new DataService();
+        assertNotNull(dataService.getFellowship());
+    }
+
+    @Test
+    void ensureOrdering() {
+        List<TolkienCharacter> fellowship = dataService.getFellowship();
+
+        // ensure that the order of the fellowship is:
+        // frodo, sam, merry,pippin, gandalf,legolas,gimli,aragorn,boromir
+        assertEquals(dataService.getFellowshipCharacter("Frodo"), fellowship.get(0));
+    }
+
+    @Test
+    void ensureAge() {
+        List<TolkienCharacter> fellowship = dataService.getFellowship();
+
+        // TODO test ensure that all hobbits and men are younger than 100 years
+        assertTrue(
+                fellowship.stream().filter(fellow -> fellow.getRace().equals(HOBBIT) ||
+                        fellow.getRace().equals(MAN))
+                        .allMatch(fellow -> fellow.age < 100)
+        );
+        // TODO also ensure that the elfs, dwars the maia are all older than 100 years
+        assertTrue(
+                fellowship.stream().filter(fellow -> fellow.getRace().equals(ELF) ||
+                        fellow.getRace().equals(DWARF))
+                        .allMatch(fellow -> fellow.age > 100)
+        );
+    }
+
+    @Test
+    void ensureThatFellowsStayASmallGroup() {
+        List<TolkienCharacter> fellowship = dataService.getFellowship();
+
+        // TODO Write a test to get the 20 element from the fellowship throws an
+        // IndexOutOfBoundsException
+        assertThrows(IndexOutOfBoundsException.class, () -> fellowship.get(20));
     }
 }
