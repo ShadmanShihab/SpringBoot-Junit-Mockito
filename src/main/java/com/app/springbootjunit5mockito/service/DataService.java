@@ -85,4 +85,13 @@ public class DataService {
         ringBearers.put(Ring.oneRing, frodo);
         return  ringBearers;
     }
+
+    public boolean update() {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
 }

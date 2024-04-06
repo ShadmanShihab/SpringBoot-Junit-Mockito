@@ -6,9 +6,11 @@ import com.app.springbootjunit5mockito.model.TolkienCharacter;
 import org.apache.tomcat.util.bcel.classfile.ClassFormatException;
 import org.junit.jupiter.api.*;
 
+import java.time.Duration;
 import java.util.List;
 
 import static com.app.springbootjunit5mockito.enumeration.Race.*;
+import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.Fail.fail;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
@@ -131,5 +133,10 @@ public class DataServiceTest {
         // TODO Write a test to get the 20 element from the fellowship throws an
         // IndexOutOfBoundsException
         assertThrows(IndexOutOfBoundsException.class, () -> fellowship.get(20));
+    }
+
+    @Test
+    public void ensureServiceDoesNotRunToLong() {
+        assertTimeout(Duration.ofSeconds(2), () -> dataService.update());
     }
 }
