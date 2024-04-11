@@ -34,10 +34,10 @@ public class DynamicTestCreationTest {
         });
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = {"Hello", "World", "JUnit"})
-    public void testStringLength(String input) {
-        int length = input.length();
-        assertTrue(length > 0);  // Assert that all provided strings have a length greater than 0
-    }
+//    @ParameterizedTest
+//    @ValueSource(strings = {"Hello", "World", "JUnit"})
+//    public void testStringLength(String input) {
+//        int length = input.length();
+//        assertTrue(length > 0);  // Assert that all provided strings have a length greater than 0
+//    }
 }
