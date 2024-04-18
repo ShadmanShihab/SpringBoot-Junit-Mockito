@@ -22,6 +22,7 @@ public class ParameterizedExampleTest {
         }
     }
 
+    //All the items ({1,2,2}, {5,3,15})  of data will be passed as parameter
     @ParameterizedTest(name = "{index} called with: {0}")
     @MethodSource(value =  "data")
     void testWithStringParameter(int[] data) {
