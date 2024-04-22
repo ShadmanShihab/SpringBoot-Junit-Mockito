@@ -1,12 +1,10 @@
-package com.app.springbootjunit5mockito;
+package com.app.springbootjunit5mockito.mockitoExample;
 
 import com.app.springbootjunit5mockito.model.Database;
 import com.app.springbootjunit5mockito.model.Service;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Answers;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Iterator;
